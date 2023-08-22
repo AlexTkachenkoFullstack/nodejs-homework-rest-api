@@ -15,14 +15,15 @@ const login=async(req, res, next)=>{
     }
     const payload={id:user._id}
     const token= jwt.sign(payload, SECRET_KEY, {expiresIn:'24h'})
-    await User.findByIdAndUpdate(payload.id, {token})
+    await User.findByIdAndUpdate(payload.id, {token}).exec()
     res.json({
         status:'success',
         code:200,
         token,
         user:{
             email: user.email,
-            subscription: user.subscription
+            subscription: user.subscription,
+            cover:user.avatarURL
         }
     })
 }

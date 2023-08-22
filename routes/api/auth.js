@@ -1,7 +1,7 @@
 const express=require('express')
 const { ctrlWrapper } = require('../../helpers')
 const {auth}=require('../../controllers')
-const {validateBody, authentificate}=require('../../middleware')
+const {validateBody, authentificate, uploadAvatar}=require('../../middleware')
 const {schemas}=require('../../models/user')
 const router=express.Router()
 
@@ -14,5 +14,7 @@ router.get('/logout', authentificate, ctrlWrapper(auth.logout))
 router.get('/current', authentificate, ctrlWrapper(auth.current))
 
 router.patch('/', authentificate, validateBody(schemas.updateSubscriptionSchema), ctrlWrapper(auth.updateSubscriptionUser))
+
+router.patch('/avatar', authentificate, uploadAvatar.single('avatar'), ctrlWrapper(auth.updateAvatar))
 
 module.exports=router
