@@ -6,8 +6,8 @@ const {HttpErrors}=require('../../helpers')
 const login=async(req, res, next)=>{
     const {password, email}=req.body;
     const user=await User.findOne({email}).exec()
-    if(!user){
-        throw HttpErrors(401, 'Email or password is wrong')
+    if(!user?.verify){
+        throw HttpErrors(401, "Email/password is wrong or you didn't confirm your email")
     }
     const passwordCompared=bcrypt.compareSync(password, user.password)
     if(!passwordCompared){

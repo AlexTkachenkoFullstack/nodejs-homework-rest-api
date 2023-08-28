@@ -4,6 +4,8 @@ const logout=require('./logout')
 const current=require('./current')
 const updateSubscriptionUser=require('./updateSubscriptionUser')
 const updateAvatar=require('./updateAvatar')
+const verifyEmail=require('./verifyEmail')
+const resendVerifyEmail=require('./resendVerifyEmail')
 
 module.exports={
     register,
@@ -11,5 +13,7 @@ module.exports={
     logout,
     current,
     updateSubscriptionUser,
-    updateAvatar
+    updateAvatar,
+    verifyEmail,
+    resendVerifyEmail
 }

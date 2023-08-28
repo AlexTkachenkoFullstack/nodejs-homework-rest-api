@@ -28,6 +28,15 @@ const userSchema=Schema({
       avatarURL: {
         type:String,
         required:true
+      },
+      verify: {
+        type: Boolean,
+        default: false,
+      },
+      verificationToken:{
+        type:String,
+        required: [true, 'Verify token is required'],
+        default:null
       }
 } , {versionKey: false, timestamps: true})
 
@@ -75,10 +84,20 @@ const updateSubscriptionSchema=Joi.object({
   })
 })
 
+const emailSchema=Joi.object({
+  email:Joi.string().pattern(emailRegexp).required().messages({
+    'string.base': 'Email should be a string',
+    'string.empty': 'Email cannot be empty',
+    'string.pattern.base':'Enter correct email',
+    'any.required': 'Missing required field email',
+  }),
+})
+
 const schemas={
     registerSchema,
     loginSchema,
-    updateSubscriptionSchema
+    updateSubscriptionSchema,
+    emailSchema
 }
 
 const User=model('user', userSchema)

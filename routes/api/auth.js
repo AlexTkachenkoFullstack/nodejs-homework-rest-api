@@ -7,6 +7,10 @@ const router=express.Router()
 
 router.post('/register', validateBody(schemas.registerSchema), ctrlWrapper(auth.register))
 
+router.get('/verify/:verificationToken', ctrlWrapper(auth.verifyEmail))
+
+router.post('/verify', validateBody(schemas.emailSchema), ctrlWrapper(auth.resendVerifyEmail))
+
 router.post('/login', validateBody(schemas.loginSchema), ctrlWrapper(auth.login))
 
 router.get('/logout', authentificate, ctrlWrapper(auth.logout))
